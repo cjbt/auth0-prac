@@ -23,8 +23,8 @@ function App() {
   return (
     <Router history={history}>
       <div className="App">
-        {!auth.isAuthenticated() && <button onClick={login}>login</button>}
-        {auth.isAuthenticated() && <button onClick={logout}>logout</button>}
+        <button onClick={login}>login</button>
+        <button onClick={logout}>logout</button>
         <Route exact path="/" component={Home} />
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/callback" component={Callback} />

@@ -18,7 +18,7 @@ export default class Auth {
     redirectUri: process.env.REACT_APP_AUTH0_CALLBACK_URL,
     audience: `https://${process.env.REACT_APP_AUTH0_DOMAIN}/userinfo`,
     responseType: 'token id_token',
-    scope: 'openid profile'
+    scope: 'openid profile email offline_access'
   });
 
   login = () => {
@@ -31,6 +31,7 @@ export default class Auth {
         let expireAt = JSON.stringify(
           authResults.expiresIn * 1000 + new Date().getTime()
         );
+        localStorage.setItem('isLoggedIn', true);
         localStorage.setItem('access_token', authResults.accessToken);
         localStorage.setItem('id_token', authResults.idToken);
         localStorage.setItem('expires_at', expireAt);
@@ -51,6 +52,12 @@ export default class Auth {
     localStorage.removeItem('expires_at');
 
     history.replace('/');
+  };
+
+  getProfile = () => {
+    if (localStorage.id_token) {
+      return jwtDecode(localStorage.id_token);
+    }
   };
 
   /**

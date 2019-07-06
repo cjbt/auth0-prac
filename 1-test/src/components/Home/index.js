@@ -4,9 +4,10 @@ import Auth from '../auth-zero/Auth';
 const auth = new Auth();
 
 const Home = () => {
+  console.log(auth.getProfile().email);
   return (
     <div>
-      <h1>{auth.getProfile().given_name || 'Name not provided'}</h1>
+      <h1>{auth.getProfile().email || 'Name not provided'}</h1>
     </div>
   );
 };
