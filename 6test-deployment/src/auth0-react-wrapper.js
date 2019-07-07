@@ -35,8 +35,10 @@ export const Auth0Provider = ({
         const user = await auth0FromHook.getUser();
         setUser(user);
 
+        console.log(user);
+
         try {
-          await Axios.post('http://localhost:6500/auth/register');
+          await Axios.post('http://localhost:6500/auth/register', user);
         } catch (error) {
           console.error(error);
         }
